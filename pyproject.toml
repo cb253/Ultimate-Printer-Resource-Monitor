@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ultimate-printer-resource-monitor"
+description = "Desktop monitor for toner and paper levels on network printers"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = ["puresnmp>=2.0.2,<3"]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6"]
+build = ["pyinstaller>=6"]
+
+[project.gui-scripts]
+ultimate-printer-resource-monitor = "resource_monitor.__main__:main"
+
+[tool.setuptools]
+packages = ["resource_monitor"]
+
+[tool.setuptools.package-data]
+resource_monitor = ["assets/*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "resource_monitor.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "tests"]
+
+[tool.ruff]
+line-length = 92
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
